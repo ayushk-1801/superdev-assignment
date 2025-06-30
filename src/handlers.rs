@@ -5,6 +5,7 @@ use rand::rngs::OsRng;
 use solana_program::{
     instruction::AccountMeta,
     pubkey::Pubkey as SolanaPubkey,
+    system_program,
 };
 
 use crate::errors::AppError;
@@ -211,12 +212,8 @@ pub async fn send_token(
             .map_err(|_| AppError::InvalidPublicKey)?,
     );
 
-    let instruction_data = {
-        let mut data = Vec::with_capacity(9);
-        data.push(3);
-        data.extend_from_slice(&payload.amount.to_le_bytes());
-        data
-    };
+    let mut instruction_data = vec![3];
+    instruction_data.extend_from_slice(&payload.amount.to_le_bytes());
 
     let accounts = vec![
         AccountMeta::new(source_pubkey, false),

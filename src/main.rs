@@ -23,12 +23,3 @@ async fn main() {
     axum::serve(listener, app).await.unwrap();
 }
 
-mod spl_token {
-    use solana_program::pubkey::Pubkey;
-    pub fn id() -> Pubkey {
-        "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
-            .parse()
-            .unwrap()
-    }
-}
-
